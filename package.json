@@ -1,0 +1,25 @@
+{
+  "name": "js-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "phaser 2.js",
+  "dependencies": {
+    "http-server": "^0.12.1",
+    "phaser": "^3.21.0",
+    "typescript": "^3.7.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steffiJ/js-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/steffiJ/js-game/issues"
+  },
+  "homepage": "https://github.com/steffiJ/js-game#readme"
+}

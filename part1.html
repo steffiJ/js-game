@@ -46,8 +46,15 @@
         );
     }
 
-    var score = 0;
-    var scoreText;
+    let score = 0;
+    let levelCount = 0;
+
+    let scoreText;
+    let levelText;
+
+    let stars;
+    let platforms;
+    let player;
 
     function create ()
     {
@@ -92,23 +99,10 @@
 
         cursors = this.input.keyboard.createCursorKeys();
 
-        stars = this.physics.add.group({
-            key: 'star',
-            repeat: 11,
-            setXY: { x: 12, y: 0, stepX: 70 }
-        });
-
-        stars.children.iterate(function (child) {
-
-            child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-
-        });
-
-        this.physics.add.collider(stars, platforms);
-
-        this.physics.add.overlap(player, stars, collectStar, null, this);
+        createStars(this);
 
         scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+        levelText = this.add.text(650, 16, 'level: 0', { fontSize: '32px', fill: '#000' });
 
         bombs = this.physics.add.group();
 
@@ -153,11 +147,10 @@
 
         if (stars.countActive(true) === 0)
         {
-            stars.children.iterate(function (child) {
+            levelCount += 1;
+            levelText.setText('Level: ' + levelCount);
 
-                child.enableBody(true, child.x, 0, true, true);
-
-            });
+            createStars(this);
 
             var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
@@ -178,6 +171,27 @@
         player.anims.play('turn');
 
         gameOver = true;
+    }
+
+    function createStars(creation) {
+
+        let starCount = Math.random() * (11 - 1) + 1;
+
+        stars = creation.physics.add.group({
+            key: 'star',
+            repeat: starCount,
+            setXY: { x: starCount+1, y: 0, stepX: 780/(starCount-1) }
+        });
+
+        stars.children.iterate(function (child) {
+
+            child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+
+        });
+
+        creation.physics.add.collider(stars, platforms);
+
+        creation.physics.add.overlap(player, stars, collectStar, null, creation);
     }
 
 </script>

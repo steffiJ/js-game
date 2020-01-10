@@ -175,12 +175,23 @@
 
     function createStars(creation) {
 
-        let starCount = Math.random() * (11 - 1) + 1;
+        let starCount = Math.round(Math.random() * (11 - 1) + 1);
+
+        console.log('starCount: ' + starCount);
+
+        let width = 800 - 36;
+        let step = width/(starCount);
+        console.log('step: ' + step);
+        let start = 12;
+        if (starCount == 11) {
+            start = 12;
+        }
+        console.log('start: ' + start);
 
         stars = creation.physics.add.group({
             key: 'star',
             repeat: starCount,
-            setXY: { x: starCount+1, y: 0, stepX: 780/(starCount-1) }
+            setXY: { x: start, y: 0, stepX: step }
         });
 
         stars.children.iterate(function (child) {
